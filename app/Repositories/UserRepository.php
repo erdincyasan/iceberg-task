@@ -19,7 +19,7 @@ class UserRepository implements UserInterface{
             $user = User::all();
             return $this->success("All users list",$user);
         }catch(Exception $e){
-            return $this->error($e->getMessage(),$e->getCode());
+            return $this->error($e->getMessage(),500);
         }
     }
 
@@ -29,7 +29,7 @@ class UserRepository implements UserInterface{
             $user = User::find($id);
             return $this->success("Find user by id",$user);
         }catch(Exception $e){
-            return $this->error($e->getMessage(),$e->getCode());
+            return $this->error($e->getMessage(),500);
         }
     }
 
@@ -47,7 +47,7 @@ class UserRepository implements UserInterface{
             return $this->success($id?"User Updated Successfully":"User created successfully",$user);
         }catch(Exception $e){
             DB::rollBack();
-            return $this->error($e->getMessage(),$e->getCode());
+            return $this->error("An error occured please try again later",500);
         }
     }
 
@@ -62,7 +62,7 @@ class UserRepository implements UserInterface{
             return $this->success("User deleted successfully",$user,200);
         }catch(Exception $e){
             DB::rollBack();
-            return $this->error($e->getMessage(),$e->getCode());
+            return $this->error($e->getMessage(),500);
         }
     }
 }
